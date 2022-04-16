@@ -24,7 +24,7 @@ Programul dispune de un meniu interactiv la rularea programului:
 
 ### How it works
 
-** Intro **
+**Intro**
 
 La fiecare pas, introduceti simplu cifra corespunzatoare optiunii dorite, sa zicem ca dorim sa adaugam un card in baza de date:
 
@@ -34,7 +34,7 @@ Daca nu selectam o optiune valida sau inputul nu are sens, programul va arunca o
 
 ![image](https://user-images.githubusercontent.com/64250100/163678961-644b7be0-ea5d-475b-8ad8-03fe23eb3fb5.png)
 
-** Features **
+**Features**
 
 ### 1. Adauga un card
 

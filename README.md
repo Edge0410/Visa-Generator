@@ -3,7 +3,7 @@
 ## Clase pentru carduri bancare
 
 Acest proiect a avut ca tematica simularea unei baze de date pentru carduri bancare ce permite
-utilizatorului sa gestioneze carduri bancare (de tip Visa sau Revolut).
+utilizatorului sa gestioneze carduri bancare (de tip **Visa** sau **Revolut** - de retinut ca un card REVOLUT este un caz particular de cars Visa, dar are cateva optiuni in plus).
 
 Programul ne permite sa adaugam carduri personalizate in baza de date si sa realizam operatii
 cu acestea, precum depunerea, retragerea (unei sume de bani), stergerea sau copierea datelor de pe carduri, vizualizarea detaliata a 

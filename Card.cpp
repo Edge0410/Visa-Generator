@@ -65,6 +65,8 @@ Card& Card::operator= (Card& card) //operator de atribuire pentru continutul de 
 {
     this->cardHolder = card.cardHolder; //atribuie numele si pinul cardului dat ca parametru, asta facem cand copiem datele de pe un card pe altul
     this->PIN = card.PIN;
+    this->expDate = card.expDate;
+    transactions++;
     return *this;
 }
 
@@ -77,6 +79,11 @@ void Card::showTransactions() //functie care afiseaza numarul de tranzactii de p
 {
     cout << "Ati efectuat pana acum " << transactions << " tranzactii" << '\n';
     cout << "Puteti efectua maxim 10 tranzactii per sesiune!" << '\n';
+}
+
+void Card::countTransaction()
+{
+    transactions++;
 }
 
 void Card::showDetails(ostream &stream) //functie de afisare apelata de operatorul << , este virtuala si apelata de clasele derivate prin functiile lor
@@ -98,7 +105,7 @@ void Card::readDetails(istream &stream) //functie de citire apelata de operatoru
     }
     for(int i = 0; i < this->cardHolder.length(); i++)
     {
-        if(isdigit(this->cardHolder[i]))
+        if(isdigit(this->cardHolder[i]) || strchr(";'/.,[]`~|", this->cardHolder[i]) != 0)
         {
             throw invalid_argument("");
         }

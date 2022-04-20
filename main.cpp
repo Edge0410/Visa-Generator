@@ -130,7 +130,7 @@ int main()
                         auto cardVisa = dynamic_pointer_cast<Visa>(Cards[i]);
                         if(typeid(*cardVisa) == typeid(Visa))
                         {
-                            cout<<indexCurent<<": "<<*cardVisa;
+                            cout<<indexCurent<<": "<<*cardVisa << '\n';
                             indexCurent++;
                         }
                     }
@@ -144,7 +144,7 @@ int main()
                         auto cardRevolut = dynamic_pointer_cast<Revolut>(Cards[i]);
                         if(cardRevolut != nullptr)
                         {
-                            cout<<indexCurent<<": "<<*cardRevolut;
+                            cout<<indexCurent<<": "<<*cardRevolut << '\n';
                             indexCurent++;
                         }
                     }
@@ -152,12 +152,7 @@ int main()
                     {
                         cout << "Lista este goala. " << '\n' << '\n';
                     }
-                    /*
-                    for (int i = 0; i < cardIndex; i++) //afisam cardurile
-                        cout << i + 1 << ": " << *Cards[i] << '\n'
-                             << '\n';
-                    */
-                    cout << "Apasati ENTER pentru a inchide vizualizarea" << '\n';
+                    cout << '\n' << "Apasati ENTER pentru a inchide vizualizarea" << '\n';
                     getline(cin, disposal);
                 }
                 catch (length_error &e) //prindem eroarea de lipsa carduri
@@ -228,6 +223,7 @@ int main()
                             {
                                 Cards.erase(Cards.begin() + selected);
                                 cardIndex--;
+                                Card::countTransaction();
                                 cout << "Operatiune efectuata cu succes." << '\n';
                                 // sterge pointerul si distruge zona de memorie
                                 // acelasi efect ca pop dar specific pentru un card anume

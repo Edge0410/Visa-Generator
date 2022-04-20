@@ -8,6 +8,7 @@ class Card
 public:
     static unsigned int transactions; //singurele chestii publice sunt functiile folosite la citire, afisare, depunere, retragere
     static void showTransactions();
+    static void countTransaction();
     virtual void showDetails(std::ostream&);
     virtual void readDetails(std::istream&);
     virtual void showType() = 0;

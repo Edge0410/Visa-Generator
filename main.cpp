@@ -44,10 +44,12 @@ void showAddCardMessage()
 
 int main()
 {
-    vector<unique_ptr<Card>> Cards; // vector ce contine cardurile adaugate
+    vector<shared_ptr<Card>> Cards; // vector ce contine cardurile adaugate
+
     int toDo;
     string option, cardtype, disposal, cardoption, operationoption, parentcard, childcard; // variabile folosite in try catch pentru citirea datelor
     int cardIndex = 0;
+
     while (1)
     {
     topLabel:
@@ -76,7 +78,7 @@ int main()
                     }
                     if (cardtype[0] == '1') //daca am selectat adaugarea unui card Visa
                     {
-                        unique_ptr<Card> visacard(new Visa());
+                        shared_ptr<Card> visacard(new Visa());
                         Cards.push_back(move(visacard)); //folosim smart pointer de tipul corespunzator si mutam in vectorul de carduri - upcasting implicit
                     VisaCreate:
                         try //incercam sa citim datele corespunzatoare, erorile din user input si aruncate din supraincarcarea operatorului de citire
@@ -93,7 +95,7 @@ int main()
                     }
                     if (cardtype[0] == '2')
                     {
-                        unique_ptr<Card> revolutcard(new Revolut()); //analog ca mai sus doar ca citim un card de tip REVOLUT
+                        shared_ptr<Card> revolutcard(new Revolut()); //analog ca mai sus doar ca citim un card de tip REVOLUT
                         Cards.push_back(move(revolutcard));
                     RevolutCreate:
                         try
@@ -122,9 +124,39 @@ int main()
                     if (cardIndex == 0) //in cazul in care nu avem carduri aruncam exceptie
                         throw length_error("Lista cardurilor este goala. Cardurile adaugate vor aparea aici");
                     cout << '\n';
+                    cout << "Carduri Visa:" << '\n' << '\n';
+                    int indexCurent = 1;
+                    for (int i = 0; i < cardIndex; i++){ //afisam cardurile Visa
+                        auto cardVisa = dynamic_pointer_cast<Visa>(Cards[i]);
+                        if(typeid(*cardVisa) == typeid(Visa))
+                        {
+                            cout<<indexCurent<<": "<<*cardVisa;
+                            indexCurent++;
+                        }
+                    }
+                    if(indexCurent == 1)
+                    {
+                        cout << "Lista este goala. " << '\n';
+                    }
+                    cout << '\n' << '\n' << "Carduri Revolut:" << '\n' << '\n';
+                    indexCurent = 1;
+                    for (int i = 0; i < cardIndex; i++){ //afisam cardurile Revolut
+                        auto cardRevolut = dynamic_pointer_cast<Revolut>(Cards[i]);
+                        if(cardRevolut != nullptr)
+                        {
+                            cout<<indexCurent<<": "<<*cardRevolut;
+                            indexCurent++;
+                        }
+                    }
+                    if(indexCurent == 1)
+                    {
+                        cout << "Lista este goala. " << '\n' << '\n';
+                    }
+                    /*
                     for (int i = 0; i < cardIndex; i++) //afisam cardurile
                         cout << i + 1 << ": " << *Cards[i] << '\n'
                              << '\n';
+                    */
                     cout << "Apasati ENTER pentru a inchide vizualizarea" << '\n';
                     getline(cin, disposal);
                 }
@@ -224,6 +256,7 @@ int main()
                         catch (exception &e)
                         {
                             cout << e.what() << '\n';
+                            goto selectedLabel;
                         }
                     }
                     else

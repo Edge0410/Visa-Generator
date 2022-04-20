@@ -21,9 +21,15 @@ Card::Card(string name) //constructor cu valoare implicita
 
     PIN = to_string(distpin(genpin));
 
-    cardHolder = name; //atribui numele si o data de expirare
+    cardHolder = name; //atribui numele posesorului
 
-    expDate = "05/2026";
+    unsigned seedan = std::chrono::system_clock::now().time_since_epoch().count(); //generez un pin 
+    default_random_engine genan(seedan); // gen(time(NULL));
+    uniform_int_distribution<int> distan(2024, 2030);
+
+    string expYear = to_string(distan(genan));
+
+    expDate = "05/" + expYear; //si o data de expirare
 
     unsigned seed2 = std::chrono::system_clock::now().time_since_epoch().count();
     default_random_engine gen2(seed2); // gen(time(NULL));
@@ -45,7 +51,7 @@ Card::Card(Card &ob) //constructor de copiere
     cardNumber = to_string(dist(gen));
     
     cardHolder = ob.cardHolder; 
-    expDate = "05/2026";
+    expDate = ob.expDate;
 
     unsigned seed2 = std::chrono::system_clock::now().time_since_epoch().count();
     default_random_engine gen2(seed2); // gen(time(NULL));
@@ -86,9 +92,16 @@ void Card::readDetails(istream &stream) //functie de citire apelata de operatoru
 {
     cout<<"Introduceti numele posesorului de card (maxim 50 de caractere): \n";
     getline(stream, this->cardHolder);
-    if(this->cardHolder.length() > 50 || this->cardHolder == "")
+    if(this->cardHolder.length() > 50 || this->cardHolder.length() == 0)
     {
         throw invalid_argument("");
+    }
+    for(int i = 0; i < this->cardHolder.length(); i++)
+    {
+        if(isdigit(this->cardHolder[i]))
+        {
+            throw invalid_argument("");
+        }
     }
 }
 

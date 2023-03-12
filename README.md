@@ -1,4 +1,4 @@
-# Proiect 2 - POO Laborator
+# Visa Generator - Proiect POO pentru generarea si gestionarea unor carduri bancare
 
 ## Clase pentru carduri bancare
 
